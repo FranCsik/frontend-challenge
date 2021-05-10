@@ -29,14 +29,12 @@ import axios from 'axios';
 export default {
   data(){
     return {
-      books: false,
       categories: [],
       books: [],
       api_key: 'aZJUSY3hvGpAAAKUEXLh9wUuNrbpxcNh'
     };
   },  
   mounted(){
-    console.log('se montó el componente')
     this.getBooks();
   },
   methods: {
@@ -55,7 +53,7 @@ export default {
       if(event.key == 'Enter' && select.value == ''){
         alert('You have to choose a category in order to search for a book')
       }else if(event.key == 'Enter'){
-        let bookTitle = input.value.replace(' ', '+');
+        let bookTitle = input.value.replace(/ /g, '+');
 
         axios.get(`https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?title=${bookTitle}&api-key=${this.api_key}`) 
         .then(response => {
@@ -67,21 +65,16 @@ export default {
             }
           }else{
             this.books = []
-            alert(`We coudn't find any book with with the following title:${input.value}.lease try again with another book title :)` )
+            alert(`We coudn't find any book with with the following title:${input.value}. Please try again with another book title :)` )
           }
-          console.log(this.books)
         })
-        .catch(err => console.log(err)) 
       }
     },
     googleSearch: function(event){
       let title = event.currentTarget.querySelector('.bookTitle').innerHTML;
       let author = event.currentTarget.querySelector('.bookAuthor').innerHTML;
-      console.log(title, author)
       let search = title+' '+author;
-      console.log(search)
       search = search.replace(/ /g, '+');
-      console.log(search)
       location.href = `https://www.google.com/search?q=${search}`
     }
     
