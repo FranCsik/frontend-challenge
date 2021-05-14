@@ -15,9 +15,7 @@
       </div>
       <div class="content">
         <div v-for="book in searchedBook" :key="book.title" class="book" v-on:click="googleSearch">
-          <div class="image">
-            <img v-bind:src="book.book_image"/>
-          </div>
+          <img v-bind:src="book.book_image"/>
           <h1 class="bookTitle">{{ book.title }}</h1>
           <h3 class="bookAuthor">{{ book.author }}</h3>
           <p class="bookDescription">{{ book.description }}</p>
